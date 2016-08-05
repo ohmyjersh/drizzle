@@ -9,7 +9,6 @@ import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
-
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
@@ -68,7 +67,7 @@ class App extends Component {
       <div className="App">
       <AppBar
         showMenuIconButton={false}
-        title="drizzle"
+        title="drizzle... because salad"
  />
         <Card>
         <TextField
