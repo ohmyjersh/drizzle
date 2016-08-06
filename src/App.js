@@ -60,12 +60,20 @@ export default class App extends Component {
 
   addIngredient(e) {
       if (e.key === 'Enter' && e.target.value !== '') {
-        var newArray = this.state.ingredients.slice();    
-        newArray.push(e.target.value);
-        this.setState({
-          ingredients:newArray,
-          add: ''
-        });
+        if(!this.state.ingredients.includes(e.target.value)){  
+          var newArray = this.state.ingredients.slice();    
+          newArray.push(e.target.value);
+          this.setState({
+            ingredients:newArray,
+            add: ''
+          });
+        }
+        else {
+          this.setState({
+            add:'',
+            error: 'already have that one!'}
+            );
+        }
       }
     }
 

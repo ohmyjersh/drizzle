@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ListItem} from 'material-ui/List';
+import Remove from 'material-ui/svg-icons/content/remove-circle';
 
 export default class IngredientItem extends Component {
     constructor(props)
@@ -13,6 +14,12 @@ export default class IngredientItem extends Component {
         if (nextProps.state !== this.state) {
             this.setState(nextProps.state);
         }
+    }
+
+    removeIngredient() {
+        this.setState({
+
+        });
     }
     
     render() {
