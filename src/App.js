@@ -15,15 +15,17 @@ const muiTheme = getMuiTheme({
   },
 });
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+const initialState = {
       add:'',
       ingredients:[],
       recipes:[],
-      page:0
-    };
+      page:0,
+      recipe:0
+}
+class App extends Component {
+  constructor() {
+    super();
+    this.state = initialState;
     this.addIngredient = this.addIngredient.bind(this);
     this.getRecipes = this.getRecipes.bind(this);
   }
@@ -35,10 +37,12 @@ class App extends Component {
                cache: 'default' })
             .then(response => response.json())
             .then((json) => {
-              let setRecipes = this.state.recipes.concat(json.results);
+              var newArray = this.state.recipes.slice();  
+              newArray.push(json.results);
+              JSON.stringify(newArray);
               this.setState({
-                recipes:setRecipes,
-                page: this.state.page + 1
+                recipes:newArray,
+                page: this.state.page + 1,
               });
             });
   }
@@ -55,20 +59,48 @@ class App extends Component {
     }
 
     clearAll() {
-      this.setState({add:'',
-                      ingredients: [],
-                      recipes:[]
-                    });
+      this.setState(initialState);
+    }
+    goNext() {
+      let nextRecipe = this.state.recipe + 1;
+      if(this.state.recipes[nextRecipe] === null || this.state.recipes[nextRecipe] === undefined)
+      {
+        console.log('no recipes, go get some');
+        this.getRecipes();
+      }
+      this.setState({
+        recipe: nextRecipe
+      });
+    }
+
+    goBack() {
+      this.setState({
+        recipe: this.state.recipe - 1
+      });
     }
 
   render() {
+    var thing;
+    if(this.state.recipes.length > 0 && this.state.recipes[this.state.recipe] !== undefined)
+    {
+        thing = <List>
+            {this.state.recipes[this.state.recipe].map(x => {
+              return <ListItem disabled={true}>
+                      <CardText><a href={x.href}>{x.title}</a></CardText>
+                      <CardText>{x.ingredients}</CardText>
+              </ListItem>;
+            })}
+            </List>;
+    }
+    else {
+      thing = <List></List>
+    }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div className="App">
       <AppBar
         showMenuIconButton={false}
-        title="drizzle... because salad"
- />
+        title="drizzle... because salad"/>
         <Card>
         <TextField
           value={this.state.add}
@@ -82,25 +114,16 @@ class App extends Component {
                     <TextField 
                       value={x}                    
                       underlineShow={false}/>
-            </ListItem>;
-            })
-          }
+            </ListItem>;})}
         </List>
         <CardActions>
           <FlatButton label="Clear" onClick={(e) => this.clearAll(e)}/>
           <FlatButton label="Search" disabled={this.state.ingredients.length > 0 ? false : true} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
-        <List>
-        {this.state.recipes.map(x => {
-          return <ListItem disabled={true}>
-                  <CardText><a href={x.href}>{x.title}</a></CardText>
-                  <CardText>{x.ingredients}</CardText>
-          </ListItem>;
-        })}
-        </List>
+        {thing}
         <CardActions>
-          <FlatButton label="Previous" />
-          <FlatButton label="Next" />
+          <FlatButton label="Previous" onClick={(e) => this.goBack(e)}/>
+          <FlatButton label="Next" onClick={(e) => this.goNext(e)}/>
         </CardActions>
         </Card>
       </div>
