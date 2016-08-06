@@ -10,6 +10,8 @@ import TextField from 'material-ui/TextField';
 import RecipeResults from './components/RecipeResults';
 import IngredientsList from './components/IngredientsList';
 
+// rxjs state container
+
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
