@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {List} from 'material-ui/List';
-import IngredientItem from './IngredientItem';
+import {ListItem} from 'material-ui/List';
 
-export default class IngredientsList extends Component {
+export default class IngredientItem extends Component {
     constructor(props)
     {
         super();
@@ -15,8 +14,9 @@ export default class IngredientsList extends Component {
             this.setState(nextProps.state);
         }
     }
-
+    
     render() {
-        return(<IngredientItem state={this.state}/>);
+        return(<span>{this.state.ingredients.map(x => {
+          return <ListItem primaryText={x}/>})}</span>);
     }
 }
