@@ -74,7 +74,8 @@ class App extends Component {
           value={this.props.add}
           onChange={e => this.props.updateAdd(e.target.value)}
           underlineShow={false}
-          hintText="Add Ingredient" onKeyDown={(e) => this.addIngredient(e)}/>;
+          hintText="Add Ingredient" 
+          onKeyDown={(e) => this.addIngredient(e)}/>;
         <IngredientsList {...this.props}/>
         <CardActions>
           <FlatButton label="Clear" onClick={(e) => this.props.clearAll()}/>

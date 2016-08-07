@@ -8,12 +8,6 @@ export default class RecipeItem extends Component {
         this.state = props.state;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.state !== this.state) {
-            this.setState(nextProps.state);
-        }
-    }
-
     render() {
         var items = this.state.recipes[this.state.recipe].map(x => {
               return <ListItem disabled={true}

@@ -7,11 +7,7 @@ export default class ResultStatus extends Component {
         super(props);
         this.state = props.state;
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.state !== this.state) {
-            this.setState(nextProps.state);
-        }
-    }
+    
     render() {
         var text = this.state.error === '' ? <ListItem disabled={true}>Enter ingredients and search</ListItem> : <ListItem disabled={true}>{this.state.error}</ListItem>;
         return(<span>{text}</span>);

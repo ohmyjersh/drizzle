@@ -10,21 +10,18 @@ export default class IngredientItem extends Component {
         super(props);
     }
 
-    componentWillReceiveProps(nextProps) {
-     // You don't have to do this check first, but it can help prevent an unneeded render
-        if (nextProps.state !== this.state) {
-            this.setState(nextProps.state);
-        }
+    onEdit(id, status) {
+        return this.props.isEditing(id, status);
     }
 
-    removeIngredient() {
-        this.setState({
-            
-        });
+    onUpdate(e, id) {
+        return this.props.updateIngredient(id, e.target.value);
     }
-    
-    onEdit(id) {
-        return this.props.isEditing(id);
+
+    onDone(e, id){
+    if (e.key === 'Enter' && e.target.value !== '') {
+        return this.onEdit(id, false);
+      }
     }
 
     onRemove(id) {
@@ -35,15 +32,21 @@ export default class IngredientItem extends Component {
         // add isEdit property for each ingredient, when row selected set isEdit=true for that item.  Swap list item for editing one.
         //console.log('props: ' + JSON.stringify(this.props));
         return(<span>{this.props.ingredients.map(x => {
+        console.log(x);
            return x.get('isEdit') 
            ? <ListItem rightIconButton={
               <IconButton onClick={(e) => this.onRemove(x.get('id'))}>
                     <Remove />
-            </IconButton>} primaryText={x.get('ingredient')}/> 
+            </IconButton>}>
+            <TextField
+                    value={x.get('ingredient')}
+                    onChange={(e) => this.onUpdate(e, x.get('id'))}
+                    onKeyDown={(e) => {this.onDone(e, x.get('id'))}}/>
+              </ListItem> 
            : <ListItem><TextField
                     value={x.get('ingredient')}
-                    hintText="Add Ingredient" 
-                    onClick={(e) => this.onEdit(x.get('id'))}/>
+                    underlineShow={false}
+                    onClick={(e) => this.onEdit(x.get('id'), true)}/>
                     </ListItem>})}
             </span>);
     }

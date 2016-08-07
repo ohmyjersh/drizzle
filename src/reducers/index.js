@@ -18,21 +18,21 @@ function removeIngredient(state, id) {
   );
 }
 
-function isEditing(state, id) {
+function updateIngredient(state, id, text) {
+  const index = findById(state, id);
+  const updatedIngredient = state.get('ingredients')
+    .get(index)
+    .set('ingredient', text);
+
+  return state.update('ingredients', ingredients => ingredients.set(index, updatedIngredient));
+}
+
+function isEditing(state, id, status) {
   const index = findById(state, id);
   const setEdit = state.get('ingredients')
     .get(index)
-    .set('isEdit', true);
+    .set('isEdit', status);
   return state.update('ingredients', ingredients => ingredients.set(index, setEdit));
-}
-
-function doneEditing(state, id, text) {
-  const index = findById(state, id);
-  const ingredient = state.get('ingredients')
-    .get(index)
-    .set('isEdit', true)
-    .set('ingredient', text);
-  return state.update('ingredients', ingredients => ingredients.set(index, ingredient));
 }
 
 function addIngredient(state, text) {
@@ -71,11 +71,13 @@ export default function(state = Map(), action) {
     case 'RESET_ADD':
       return resetAdd(state);
     case 'IS_EDITING':
-      return isEditing(state, action.id);
+      return isEditing(state, action.id, action.status);
     case 'DONE_EDITING':
       return doneEditing(state, action.id);
     case 'REMOVE':
       return removeIngredient(state, action.id);
+    case 'UPDATE_INGREDIENT':
+      return updateIngredient(state, action.id, action.text);
   }
   return state;
 }

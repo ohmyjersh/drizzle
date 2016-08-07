@@ -20,10 +20,11 @@ export function resetAdd() {
     type: 'RESET_ADD'
   };
 }
-export function isEditing(id) {
+export function isEditing(id, status) {
   return {
     type: 'IS_EDITING',
-    id
+    id,
+    status
   };
 }
 export function doneEditing(id) {
@@ -37,4 +38,12 @@ export function removeIngredient(id) {
     type: 'REMOVE',
     id
   }
+}
+
+export function updateIngredient(id, text) {
+  return {
+    type: 'UPDATE_INGREDIENT',
+    id,
+    text
+  };
 }

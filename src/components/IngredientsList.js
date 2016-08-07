@@ -8,12 +8,6 @@ export default class IngredientsList extends Component {
         super(props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.state !== this.state) {
-            this.setState(nextProps.state);
-        }
-    }
-
     render() {
         return(<List><IngredientItem {...this.props}/></List>);
     }
