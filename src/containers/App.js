@@ -51,12 +51,9 @@ class App extends Component {
 
   addIngredient(e) {
       if (e.key === 'Enter' && e.target.value !== '') {
+        this.props.resetAdd();
         return this.props.addIngredient(e.target.value);
       }
-    }
-
-  clearAll() {
-      this.setState(initialState);
     }
 
   goBack() {
@@ -74,12 +71,13 @@ class App extends Component {
         title="drizzle... because salad"/>
         <Card>
         <TextField
+          value={this.props.add}
           onChange={e => this.props.updateAdd(e.target.value)}
           underlineShow={false}
           hintText="Add Ingredient" onKeyDown={(e) => this.addIngredient(e)}/>;
         <IngredientsList {...this.props}/>
         <CardActions>
-          <FlatButton label="Clear" onClick={(e) => this.clearAll(e)}/>
+          <FlatButton label="Clear" onClick={(e) => this.props.clearAll()}/>
           <FlatButton label="Search" disabled={(this.props.ingredients.length === 0 || this.props.recipes.length) > 0 ? true : false} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         <RecipeResults state={this.props} />

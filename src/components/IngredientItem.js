@@ -23,26 +23,28 @@ export default class IngredientItem extends Component {
         });
     }
     
-    onEdit(e){
-        //console.log(e);
+    onEdit(id) {
+        return this.props.isEditing(id);
     }
 
-    onRemove(e) {
-
+    onRemove(id) {
+        return this.props.removeIngredient(id);
     }
 
     render() {
         // add isEdit property for each ingredient, when row selected set isEdit=true for that item.  Swap list item for editing one.
         //console.log('props: ' + JSON.stringify(this.props));
         return(<span>{this.props.ingredients.map(x => {
-            console.log(x);
            return x.get('isEdit') 
            ? <ListItem rightIconButton={
-              <IconButton>
+              <IconButton onClick={(e) => this.onRemove(x.get('id'))}>
                     <Remove />
             </IconButton>} primaryText={x.get('ingredient')}/> 
            : <ListItem><TextField
                     value={x.get('ingredient')}
-                    hintText="Add Ingredient" onKeyDown={(e) => this.onEdit(e)}/></ListItem>})}</span>);
+                    hintText="Add Ingredient" 
+                    onClick={(e) => this.onEdit(x.get('id'))}/>
+                    </ListItem>})}
+            </span>);
     }
 }
