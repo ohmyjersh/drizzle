@@ -13,7 +13,7 @@ export default class ResultStatus extends Component {
         }
     }
     render() {
-        var text = this.state.error === '' ? <ListItem>Enter ingredients and search</ListItem> : <ListItem>{this.state.error}</ListItem>;
+        var text = this.state.error === '' ? <ListItem disabled={true}>Enter ingredients and search</ListItem> : <ListItem disabled={true}>{this.state.error}</ListItem>;
         return(<span>{text}</span>);
     }
 }

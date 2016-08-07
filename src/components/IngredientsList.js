@@ -10,13 +10,12 @@ export default class IngredientsList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-     // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.state !== this.state) {
             this.setState(nextProps.state);
         }
     }
 
     render() {
-        return(<IngredientItem state={this.state}/>);
+        return(<List><IngredientItem state={this.state}/></List>);
     }
 }

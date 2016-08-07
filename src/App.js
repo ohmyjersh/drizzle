@@ -33,7 +33,8 @@ export default class App extends Component {
   }
 
   getRecipes(e) {
-    let ingredientsStr = this.state.ingredients.join(',');
+    let ingredientsStr = this.state.ingredients.ingredient.join(',');
+    console.log(ingredientsStr);
     fetch(`http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${this.state.page + 1}`, { method: 'GET',
                cache: 'default' })
             .then(response => response.json())
@@ -44,8 +45,7 @@ export default class App extends Component {
               }
               else {
                 var recipe = this.state.recipe;
-                if(this.state.recipes.length > 0){ 
-                  console.log('add recipe'); recipe += 1;}
+                if(this.state.recipes.length > 0){ recipe += 1;}
                 var newArray = this.state.recipes.slice();  
                 newArray.push(json.results);
                 this.setState({
@@ -62,7 +62,9 @@ export default class App extends Component {
       if (e.key === 'Enter' && e.target.value !== '') {
         if(!this.state.ingredients.includes(e.target.value)){  
           var newArray = this.state.ingredients.slice();    
-          newArray.push(e.target.value);
+          newArray.push({id:1,
+            ingredient:e.target.value,
+            isEdit: false});
           this.setState({
             ingredients:newArray,
             add: ''
@@ -76,6 +78,11 @@ export default class App extends Component {
         }
       }
     }
+  //  addIngredient(e) {
+  //     if (e.key === 'Enter' && e.target.value !== '') {
+
+  //       }
+  //   }
 
   clearAll() {
       this.setState(initialState);

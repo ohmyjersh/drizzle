@@ -15,7 +15,6 @@ export default class RecipeItem extends Component {
     }
 
     render() {
-        console.log(this.state.recipe);
         var items = this.state.recipes[this.state.recipe].map(x => {
               return <ListItem disabled={true}
                 primaryText={<a href={x.href}>{x.title}</a>}
