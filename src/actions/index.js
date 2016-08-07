@@ -4,3 +4,9 @@ export function addIngredient(text) {
     text
   }
 }
+export function updateAdd(char) {
+  return {
+    type: 'UPDATE_ADD',
+    char
+  };
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepOrange500} from 'material-ui/styles/colors';
@@ -7,8 +9,8 @@ import AppBar from 'material-ui/AppBar';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import RecipeResults from './components/RecipeResults';
-import IngredientsList from './components/IngredientsList';
+import RecipeResults from '../components/RecipeResults';
+import IngredientsList from '../components/IngredientsList';
 
 // rxjs state container
 
@@ -18,18 +20,9 @@ const muiTheme = getMuiTheme({
   },
 });
 
-const initialState = {
-      add:'',
-      ingredients:[],
-      recipes:[],
-      page:0,
-      recipe:0,
-      error:''
-}
-export default class App extends Component {
-  constructor() {
+class App extends Component {
+  constructor(props) {
     super();
-    this.state = initialState;
   }
 
   getRecipes(e) {
@@ -40,7 +33,6 @@ export default class App extends Component {
             .then(response => response.json())
             .then((json) => {
               if(json.results.length === 0) {
-                console.log('error');
                 this.setState({error: 'no recipes found'});
               }
               else {
@@ -53,36 +45,15 @@ export default class App extends Component {
                   page: this.state.page + 1,
                   recipe: recipe
                 });
-                console.log(this.state);
               }
             });
   }
 
   addIngredient(e) {
       if (e.key === 'Enter' && e.target.value !== '') {
-        if(!this.state.ingredients.includes(e.target.value)){  
-          var newArray = this.state.ingredients.slice();    
-          newArray.push({id:1,
-            ingredient:e.target.value,
-            isEdit: false});
-          this.setState({
-            ingredients:newArray,
-            add: ''
-          });
-        }
-        else {
-          this.setState({
-            add:'',
-            error: 'already have that one!'}
-            );
-        }
+        return this.props.addIngredient(e.target.value);
       }
     }
-  //  addIngredient(e) {
-  //     if (e.key === 'Enter' && e.target.value !== '') {
-
-  //       }
-  //   }
 
   clearAll() {
       this.setState(initialState);
@@ -103,20 +74,18 @@ export default class App extends Component {
         title="drizzle... because salad"/>
         <Card>
         <TextField
-          value={this.state.add}
-          onChange={e => this.setState({ add: e.target.value })}
-          ref="addIngredients" 
+          onChange={e => this.props.updateAdd(e.target.value)}
           underlineShow={false}
           hintText="Add Ingredient" onKeyDown={(e) => this.addIngredient(e)}/>;
-        <IngredientsList state={this.state}/>
+        <IngredientsList {...this.props}/>
         <CardActions>
           <FlatButton label="Clear" onClick={(e) => this.clearAll(e)}/>
-          <FlatButton label="Search" disabled={(this.state.ingredients.length === 0 || this.state.recipes.length) > 0 ? true : false} onClick={(e) => this.getRecipes(e)}/>
+          <FlatButton label="Search" disabled={(this.props.ingredients.length === 0 || this.props.recipes.length) > 0 ? true : false} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
-        <RecipeResults state={this.state} />
+        <RecipeResults state={this.props} />
         <CardActions>
-          <FlatButton label="Previous" disabled={this.state.recipes.length === 0 || this.state.recipe === 0 ? true : false} onClick={(e) => this.goBack(e)}/>
-          <FlatButton label="Next" disabled={this.state.recipes.length === 0} onClick={(e) => this.getRecipes(e)}/>
+          <FlatButton label="Previous" disabled={this.props.recipes.length === 0 || this.props.recipe === 0 ? true : false} onClick={(e) => this.goBack(e)}/>
+          <FlatButton label="Next" disabled={this.props.recipes.length === 0} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         </Card>
       </div>
@@ -124,3 +93,16 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    add:state.get('add'),
+    ingredients:state.get('ingredients'),
+    recipes:state.get('recipes'),
+    page:state.get('page'),
+    recipe:state.get('recipe'),
+    error:state.get('error')
+  };
+}
+
+export const AppContainer = connect(mapStateToProps, actions)(App);

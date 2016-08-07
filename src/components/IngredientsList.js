@@ -5,8 +5,7 @@ import IngredientItem from './IngredientItem';
 export default class IngredientsList extends Component {
     constructor(props)
     {
-        super();
-        this.state = props.state;
+        super(props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -16,6 +15,6 @@ export default class IngredientsList extends Component {
     }
 
     render() {
-        return(<List><IngredientItem state={this.state}/></List>);
+        return(<List><IngredientItem {...this.props}/></List>);
     }
 }
