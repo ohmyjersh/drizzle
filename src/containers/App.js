@@ -36,9 +36,20 @@ class App extends Component {
       }
     }
 
-  goBack() {
+  previousRecipes() {
       return this.props.previousRecipes();
     }
+
+  nextRecipes() {
+    console.log(this.props.recipe <= this.props.page);
+    if(this.props.recipe < this.props.page){
+      return this.props.nextRecipes();
+    }
+    else {
+      this.getRecipes();
+    }
+  }
+
 
   render() {
     return (
@@ -56,24 +67,29 @@ class App extends Component {
           onKeyDown={(e) => this.addIngredient(e)}/>;
         <IngredientsList {...this.props}/>
         <CardActions>
-          <FlatButton label="Clear" disabled={(this.props.ingredients.size === 0 
-                                                || this.props.results.size) > 0 
+          <FlatButton label="Clear" disabled={this.props.ingredients.size === 0 
                                                 ? true 
                                                 : false}  
                                                 onClick={(e) => this.props.clearAll()}/>
-          <FlatButton label="Search" disabled={(this.props.ingredients.size === 0 
-                                                || this.props.results.size) > 0 
+          <FlatButton label="Search" disabled={this.props.ingredients.size === 0 
+                                                || this.props.results.size > 0
                                                 ? true 
                                                 : false} 
                                     onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         <RecipeResults {...this.props}/>
         <CardActions>
-          <FlatButton label="Previous" disabled={this.props.recipe === 0 
+          <FlatButton label="Previous" disabled={this.props.results.size === 0
+                                                || this.props.recipe === 1
+                                                || this.props.isFetching 
                                                 ? true 
                                                 : false} 
-                                        onClick={(e) => this.goBack(e)}/>
-          <FlatButton label="Next" disabled={this.props.results.size === 0} onClick={(e) => this.getRecipes(e)}/>
+                                        onClick={(e) => this.previousRecipes(e)}/>
+          <FlatButton label="Next" disabled={this.props.results.size === 0
+                                            || this.props.isFetching
+                                            ? true
+                                            : false}
+                                          onClick={(e) => this.nextRecipes(e)}/>
         </CardActions>
         </Card>
       </div>
@@ -89,7 +105,8 @@ function mapStateToProps(state) {
     results:state.get('results'),
     page:state.get('page'),
     recipe:state.get('recipe'),
-    error:state.get('error')
+    error:state.get('error'),
+    isFetching:state.get('isFetching')
   };
 }
 

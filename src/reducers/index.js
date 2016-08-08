@@ -13,7 +13,6 @@ function removeIngredient(state, id) {
     )
   );
 }
-
 function updateIngredient(state, id, text) {
   const index = findById(state, id);
   let updatedIngredient = state.get('ingredients')
@@ -21,7 +20,6 @@ function updateIngredient(state, id, text) {
     .set('ingredient', text);
   return state.update('ingredients', ingredients => ingredients.set(index, updatedIngredient));
 }
-
 function isEditing(state, id, status) {
   const index = findById(state, id);
   const setEdit = state.get('ingredients')
@@ -29,7 +27,6 @@ function isEditing(state, id, status) {
     .set('isEdit', status);
   return state.update('ingredients', ingredients => ingredients.set(index, setEdit));
 }
-
 function addIngredient(state, text) {
     const itemId = state.get('ingredients').reduce((maxId, item) => Math.max(maxId,item.get('id')), 0) + 1;
     const newIngredient = Map({id: itemId, ingredient: text, isEdit: false});
@@ -39,10 +36,13 @@ function addIngredient(state, text) {
 function updateAdd(state, char){
   return state.set('add', char);
 }
-
 function previousRecipes(state) {
     const previousRecipe = state.set('recipe', state.get('recipe')-1);
     return state.merge(previousRecipe);
+ }
+ function nextRecipes(state) {
+    const nextRecipes = state.set('recipe', state.get('recipe')+1);
+    return state.merge(nextRecipes);
  }
 function clearAll(state){
   const newState = Immuteable.fromJS({add:'',
@@ -54,12 +54,14 @@ function clearAll(state){
   return state.merge(newState);
 }
 function getRecipes(state, recipes) {
-      let recipe = state.get('recipe');
-      if(state.get('results').size > 0){ recipe += 1;}
       return state.set('page', state.get('page') + 1)
-          .set('recipe', recipe)
+          .set('recipe', state.get('recipe')+1)
+          .set('isFetching', false)
           .update('results', (results) => results.push(recipes));
 }
+function recipeRequest(state) {
+    return state.set('isFetching', true);
+  }
 
 export default function(state = Map(), action) {
   switch (action.type) {
@@ -75,10 +77,14 @@ export default function(state = Map(), action) {
       return removeIngredient(state, action.id);
     case 'UPDATE_INGREDIENT':
       return updateIngredient(state, action.id, action.text);
+    case 'RECIPE_REQUEST':
+      return recipeRequest(state);
     case 'RECIPE_RESPONSE':
       return getRecipes(state, action.recipes);
-    case 'PREVIOUS_RECIPE':
+    case 'PREVIOUS_RECIPES':
       return previousRecipes(state);
+    case 'NEXT_RECIPES':
+      return nextRecipes(state);
   }
   return state;
 }

@@ -42,7 +42,12 @@ export function updateIngredient(id, text) {
 }
 export function previousRecipes() {
   return {
-    type:'PREVIOUS_RECIPE'
+    type:'PREVIOUS_RECIPES'
+  };
+}
+export function nextRecipes() {
+  return {
+    type:'NEXT_RECIPES'
   };
 }
 export function setError(text){
