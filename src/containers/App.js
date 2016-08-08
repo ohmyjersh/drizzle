@@ -64,12 +64,11 @@ class App extends Component {
         </CardActions>
         <RecipeResults {...this.props}/>
         <CardActions>
-          <FlatButton label="Previous" disabled={this.props.recipes.length === 0 
-                                                || this.props.recipe === 0 
+          <FlatButton label="Previous" disabled={this.props.recipe === 0 
                                                 ? true 
                                                 : false} 
                                         onClick={(e) => this.goBack(e)}/>
-          <FlatButton label="Next" disabled={this.props.recipes.length === 0} onClick={(e) => this.getRecipes(e)}/>
+          <FlatButton label="Next" disabled={this.props.recipes.size === 0} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         </Card>
       </div>

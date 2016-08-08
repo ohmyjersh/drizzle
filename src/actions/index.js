@@ -52,7 +52,6 @@ export function setError(text){
   };
 }
 export function recipeRequest() {
-  console.log('request');
   return {
   type: 'RECIPE_REQUEST'
   }
@@ -64,7 +63,6 @@ export function recipeResponse(recipes) {
   }
 }
 export function getRecipes(ingredientsStr, page) {
-  console.log('firing off request')
   return dispatch => {
     dispatch(recipeRequest())
     return fetch(`http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${page + 1}`, { method: 'GET',

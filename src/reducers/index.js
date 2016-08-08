@@ -68,10 +68,9 @@ function clearAll(state, char){
 }
 function getRecipes(state, recipes) {
         var recipe = state.get('recipe');
-        console.log(state.get('recipes').size);
         if(state.get('recipes').length > 0){ recipe += 1;}
         const addRecipes = state
-          .update('recipes', recipes => recipes.set(recipe, recipes))
+          .update('recipes', recipes => recipes.push(recipes))
           .set('page', state.get('page') + 1)
           .set('recipe', recipe);
         return state.merge(addRecipes);
