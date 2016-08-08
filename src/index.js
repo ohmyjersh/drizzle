@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {List, Map} from 'immutable';
 import {Provider} from 'react-redux';
 import configureStore from './stores';
 import {AppContainer} from './containers/App';

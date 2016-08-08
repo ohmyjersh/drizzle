@@ -4,16 +4,11 @@ import RecipeItem from './RecipeItem';
 import RecipeStatus from './ResultStatus';
 
 export default class RecipeResults extends Component {
-    constructor(props)
-    {
-        super(props);
-        this.state = props.state;
-    }
-
     render() {
-        var items = this.state.recipes.length > 0 && this.state.recipes[this.state.recipe] !== undefined 
-        ? <RecipeItem state={this.state}/> 
-        : <RecipeStatus state={this.state}/>;
+        console.log(this.props.recipes.size);
+        var items = this.props.recipes.size > 0 //&& this.props.recipes[this.props.recipe] !== undefined 
+        ? <RecipeItem {...this.props}/> 
+        : <RecipeStatus {...this.props}/>;
         return(<List>{items}</List>);
     }
 }

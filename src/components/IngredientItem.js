@@ -5,11 +5,6 @@ import IconButton from 'material-ui/IconButton';
 import Remove from 'material-ui/svg-icons/content/remove-circle';
 
 export default class IngredientItem extends Component {
-    constructor(props)
-    {
-        super(props);
-    }
-
     onEdit(id, status) {
         return this.props.isEditing(id, status);
     }
@@ -30,9 +25,7 @@ export default class IngredientItem extends Component {
 
     render() {
         // add isEdit property for each ingredient, when row selected set isEdit=true for that item.  Swap list item for editing one.
-        //console.log('props: ' + JSON.stringify(this.props));
         return(<span>{this.props.ingredients.map(x => {
-        console.log(x);
            return x.get('isEdit') 
            ? <ListItem rightIconButton={
               <IconButton onClick={(e) => this.onRemove(x.get('id'))}>

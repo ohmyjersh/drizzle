@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepOrange500} from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RecipeResults from '../components/RecipeResults';
@@ -26,40 +25,18 @@ class App extends Component {
   }
 
   getRecipes(e) {
-    let ingredientsStr = this.state.ingredients.ingredient.join(',');
-    console.log(ingredientsStr);
-    fetch(`http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${this.state.page + 1}`, { method: 'GET',
-               cache: 'default' })
-            .then(response => response.json())
-            .then((json) => {
-              if(json.results.length === 0) {
-                this.setState({error: 'no recipes found'});
-              }
-              else {
-                var recipe = this.state.recipe;
-                if(this.state.recipes.length > 0){ recipe += 1;}
-                var newArray = this.state.recipes.slice();  
-                newArray.push(json.results);
-                this.setState({
-                  recipes:newArray,
-                  page: this.state.page + 1,
-                  recipe: recipe
-                });
-              }
-            });
+    var ingredientsStr = this.props.ingredients.map(x => { return x.ingredient}).join(',');
+    return this.props.getRecipes(ingredientsStr, this.props.page);
   }
 
   addIngredient(e) {
       if (e.key === 'Enter' && e.target.value !== '') {
-        this.props.resetAdd();
         return this.props.addIngredient(e.target.value);
       }
     }
 
   goBack() {
-      this.setState({
-        recipe: this.state.recipe - 1
-      });
+      return this.props.previousRecipe();
     }
 
   render() {
@@ -79,11 +56,19 @@ class App extends Component {
         <IngredientsList {...this.props}/>
         <CardActions>
           <FlatButton label="Clear" onClick={(e) => this.props.clearAll()}/>
-          <FlatButton label="Search" disabled={(this.props.ingredients.length === 0 || this.props.recipes.length) > 0 ? true : false} onClick={(e) => this.getRecipes(e)}/>
+          <FlatButton label="Search" disabled={(this.props.ingredients.length === 0 
+                                                || this.props.recipes.length) > 0 
+                                                ? true 
+                                                : false} 
+                                    onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
-        <RecipeResults state={this.props} />
+        <RecipeResults {...this.props}/>
         <CardActions>
-          <FlatButton label="Previous" disabled={this.props.recipes.length === 0 || this.props.recipe === 0 ? true : false} onClick={(e) => this.goBack(e)}/>
+          <FlatButton label="Previous" disabled={this.props.recipes.length === 0 
+                                                || this.props.recipe === 0 
+                                                ? true 
+                                                : false} 
+                                        onClick={(e) => this.goBack(e)}/>
           <FlatButton label="Next" disabled={this.props.recipes.length === 0} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         </Card>
