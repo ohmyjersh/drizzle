@@ -15,7 +15,7 @@
     ],
     "files.exclude": {
         "**/*.js": {
-            "when": "$(basename).ts"
+            "when": "$(basename).js"
         }
     },
     "files.autoSave": "onFocusChange"

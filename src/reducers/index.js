@@ -1,8 +1,4 @@
-import {Map, List} from 'immutable';
-
-function setState(state, newState) {
-  return state.merge(newState);
-}
+import Immuteable, {Map, List} from 'immutable';
 
 function findById(state, id) {
   return state.get('ingredients').findIndex(
@@ -20,10 +16,9 @@ function removeIngredient(state, id) {
 
 function updateIngredient(state, id, text) {
   const index = findById(state, id);
-  return state.get('ingredients')
+  let updatedIngredient = state.get('ingredients')
     .get(index)
     .set('ingredient', text);
-
   return state.update('ingredients', ingredients => ingredients.set(index, updatedIngredient));
 }
 
@@ -45,53 +40,35 @@ function updateAdd(state, char){
   return state.set('add', char);
 }
 
-function resetAdd(state) {
-  return state.set('add', '');
-}
-
 function previousRecipes(state) {
-
-
-
     const previousRecipe = state.set('recipe', state.get('recipe')-1);
     return state.merge(previousRecipe);
  }
-function clearAll(state, char){
-  const newState = state
-    .set('add','')
-    .set('ingredients', new List())
-    .set('recipes',new List())
-    .set('page',0)
-    .set('error', '')
-    .set('recipe',0);
-  return setState(state, newState);
+function clearAll(state){
+  const newState = Immuteable.fromJS({add:'',
+      ingredients:[],
+      results:[],
+      page:0,
+      recipe:0,
+      error:''});
+  return state.merge(newState);
 }
 function getRecipes(state, recipes) {
-        console.log(JSON.stringify(state.recipes));
-        var recipe = state.get('recipe');
-        var prevRecipes = state.get('recipes');
-        console.log(JSON.stringify(state.recipes));
-        prevRecipes.push({recipes:recipes});
-        if(state.get('recipes').length > 0){ recipe += 1;}
-        const addRecipes = state
-          .set('recipes', prevRecipes)
-          .set('page', state.get('page') + 1)
-          .set('recipe', recipe);
-        return state.set(addRecipes);
+      let recipe = state.get('recipe');
+      if(state.get('results').size > 0){ recipe += 1;}
+      return state.set('page', state.get('page') + 1)
+          .set('recipe', recipe)
+          .update('results', (results) => results.push(recipes));
 }
 
 export default function(state = Map(), action) {
   switch (action.type) {
     case 'ADD_INGREDIENT':
       return addIngredient(state, action.text);
-    case 'SET_STATE':
-      return setState(state, action.state);
     case 'UPDATE_ADD':
       return updateAdd(state, action.char);
     case 'CLEAR_ALL':
       return clearAll(state);
-    case 'RESET_ADD':
-      return resetAdd(state);
     case 'IS_EDITING':
       return isEditing(state, action.id, action.status);
     case 'REMOVE':

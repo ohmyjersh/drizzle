@@ -2,5 +2,9 @@
 {
     "files.associations": {
         "*.js": "javascriptreact"
-    }
-}
+    },
+    "files.autoSave": "on",
+
+    // Controls the delay in ms after which a dirty file is saved automatically. Only applies when "files.autoSave" is set to "afterDelay"
+    "files.autoSaveDelay": 1000,
+} 

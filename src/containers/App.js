@@ -25,7 +25,8 @@ class App extends Component {
   }
 
   getRecipes(e) {
-    var ingredientsStr = this.props.ingredients.map(x => { return x.ingredient}).join(',');
+    var ingredientsArr = this.props.ingredients.map(x => { return x.get('ingredient')})
+    var ingredientsStr = ingredientsArr.join(',');
     return this.props.getRecipes(ingredientsStr, this.props.page);
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
     }
 
   goBack() {
-      return this.props.previousRecipe();
+      return this.props.previousRecipes();
     }
 
   render() {
@@ -55,9 +56,13 @@ class App extends Component {
           onKeyDown={(e) => this.addIngredient(e)}/>;
         <IngredientsList {...this.props}/>
         <CardActions>
-          <FlatButton label="Clear" onClick={(e) => this.props.clearAll()}/>
-          <FlatButton label="Search" disabled={(this.props.ingredients.length === 0 
-                                                || this.props.recipes.length) > 0 
+          <FlatButton label="Clear" disabled={(this.props.ingredients.size === 0 
+                                                || this.props.results.size) > 0 
+                                                ? true 
+                                                : false}  
+                                                onClick={(e) => this.props.clearAll()}/>
+          <FlatButton label="Search" disabled={(this.props.ingredients.size === 0 
+                                                || this.props.results.size) > 0 
                                                 ? true 
                                                 : false} 
                                     onClick={(e) => this.getRecipes(e)}/>
@@ -68,7 +73,7 @@ class App extends Component {
                                                 ? true 
                                                 : false} 
                                         onClick={(e) => this.goBack(e)}/>
-          <FlatButton label="Next" disabled={this.props.recipes.size === 0} onClick={(e) => this.getRecipes(e)}/>
+          <FlatButton label="Next" disabled={this.props.results.size === 0} onClick={(e) => this.getRecipes(e)}/>
         </CardActions>
         </Card>
       </div>
@@ -81,7 +86,7 @@ function mapStateToProps(state) {
   return {
     add:state.get('add'),
     ingredients:state.get('ingredients'),
-    recipes:state.get('recipes'),
+    results:state.get('results'),
     page:state.get('page'),
     recipe:state.get('recipe'),
     error:state.get('error')

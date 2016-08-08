@@ -8,13 +8,7 @@ injectTapEventPlugin();
 
 const store = configureStore();
 store.dispatch({
-    type: 'SET_STATE',
-    state: {add:'',
-      ingredients:[],
-      recipes:[],
-      page:0,
-      recipe:0,
-      error:''}});
+    type: 'CLEAR_ALL'});
 
 ReactDOM.render(
   <Provider store={store}>
