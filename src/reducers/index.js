@@ -67,13 +67,17 @@ function clearAll(state, char){
   return setState(state, newState);
 }
 function getRecipes(state, recipes) {
+        console.log(JSON.stringify(state.recipes));
         var recipe = state.get('recipe');
+        var prevRecipes = state.get('recipes');
+        console.log(JSON.stringify(state.recipes));
+        prevRecipes.push({recipes:recipes});
         if(state.get('recipes').length > 0){ recipe += 1;}
         const addRecipes = state
-          .update('recipes', recipes => recipes.push(recipes))
+          .set('recipes', prevRecipes)
           .set('page', state.get('page') + 1)
           .set('recipe', recipe);
-        return state.merge(addRecipes);
+        return state.set(addRecipes);
 }
 
 export default function(state = Map(), action) {

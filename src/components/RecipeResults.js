@@ -5,6 +5,7 @@ import RecipeStatus from './ResultStatus';
 
 export default class RecipeResults extends Component {
     render() {
+        console.log(this.props.recipes.size);
         var items = this.props.recipes.size > 0 //&& this.props.recipes[this.props.recipe] !== undefined 
         ? <RecipeItem {...this.props}/> 
         : <RecipeStatus {...this.props}/>;
