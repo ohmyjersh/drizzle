@@ -1,8 +1,8 @@
-import {List, Map, fromJS} from 'immutable';
-import {expect} from 'chai';
+// import {List, Map, fromJS} from 'immutable';
+// import {expect} from 'chai';
 
-import reducer from '../../src/reducers';
+// import reducer from '../../src/reducers';
 
-describe('reducer spec', () =>{
+// describe('reducer spec', () =>{
 
-});
+// });

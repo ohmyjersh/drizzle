@@ -1,13 +1,13 @@
-
-function countIngredients(have, ingredients) {
+var countIngredients = function(have, ingredients) {
     var count = 0;
     for(var i = 0; i < ingredients.length; i++) {
         for(s=0; s < have.length; i++) {
             if(ingredients[i] === have[s])
-                count++;
+                return count++;
+            return;    
         }   
     }
     return count;
 }
 
-export default {countIngredients};
+module.exports = {countIngredients};
