@@ -7,7 +7,7 @@ export default class RecipeItem extends Component {
         var items = jsResults[this.props.recipe -1].map(x => {
             return <ListItem disabled={true}
                 primaryText={<a href={x.href}>{x.title}</a>}
-                secondaryText={x.ingredients}/>
+                secondaryText={<p><span>{x.ingredients.length}</span>{x.ingredients}</p>}/>
             });
         return(<span>{items}</span>);
     }
