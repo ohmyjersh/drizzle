@@ -4,15 +4,14 @@ import * as actions from '../actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepOrange500} from 'material-ui/styles/colors';
-import AppBar from 'material-ui/AppBar';
-import {Card, CardActions} from 'material-ui/Card';
+import {Card,CardHeader, CardMedia, CardActions} from 'material-ui/Card';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 import RecipeResults from '../components/RecipeResults';
 import IngredientsList from '../components/IngredientsList';
-
-// rxjs state container
-
+import logo from '../images/drizzle.png';
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
@@ -55,10 +54,10 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div className="App">
-      <AppBar
-        showMenuIconButton={false}
-        title="drizzle... because salad"/>
-        <Card>
+      <Card>
+        <CardMedia>
+          <img src={logo}/>
+          </CardMedia>
         <TextField
           value={this.props.add}
           onChange={e => this.props.updateAdd(e.target.value)}
