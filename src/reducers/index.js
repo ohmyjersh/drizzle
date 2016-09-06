@@ -63,7 +63,7 @@ function recipeRequest(state) {
     return state.set('isFetching', true);
   }
 
-export default function(state = Map(), action) {
+export default function reducer(state = Map(), action) {
   switch (action.type) {
     case 'ADD_INGREDIENT':
       return addIngredient(state, action.text);

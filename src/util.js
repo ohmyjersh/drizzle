@@ -1,7 +1,7 @@
 var countIngredients = function(have, ingredients) {
     var count = 0;
     for(var i = 0; i < ingredients.length; i++) {
-        for(s=0; s < have.length; s++) {
+        for(var s=0; s < have.length; s++) {
             if(ingredients[i] === have[s])
                 {count++;}
         }   
