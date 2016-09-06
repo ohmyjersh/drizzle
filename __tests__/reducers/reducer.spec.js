@@ -1,26 +1,21 @@
 var {List, Map, fromJS} = require('immutable');
-var {expect} = require('chai');
-var reducer = require('../../src/reducers');
+import reducer from '../../src/reducers';
 
-
-var initialState;
-beforeEach('setup state', () => {
-    initialState = fromJS({add:'',
+test('',()=>{
+  var reducer = require('../../src/reducers');
+   var initialState = fromJS({add:'',
         ingredients:[],
         results:[],
         page:0,
         recipe:0,
         error:''
     });
-});
-test('',()=>{
     // set action
-    const action = {type:'ADD_INGREDIENT' ,text: 'h'};
+    const action = {type:'UPDATE_ADD' ,char: 'h'};
     // get state
-    console.log(reducer);
     var nextState = reducer(initialState, action);
     // assert state
-    expect(nextState).toBe(fromJS({add:'h',
+    expect(nextState).toEqual(fromJS({add:'h',
         ingredients:[],
         results:[],
         page:0,
