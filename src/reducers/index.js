@@ -50,7 +50,8 @@ function clearAll(state){
       results:[],
       page:0,
       recipe:0,
-      error:''});
+      error:'',
+    isFetching:false});
   return state.merge(newState);
 }
 function getRecipes(state, recipes) {
