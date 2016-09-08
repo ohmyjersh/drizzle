@@ -53,10 +53,10 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-      <div className="App">
+      <div className="App" style={styles.container}>
       <Card>
-        <CardMedia>
-          <img src={logo}/>
+        <CardMedia style={styles.cardMedia}>
+          <img src={logo} style={styles.logo} />
           </CardMedia>
         <TextField
           value={this.props.add}
@@ -94,6 +94,16 @@ class App extends Component {
       </div>
       </MuiThemeProvider>
     );
+  }
+}
+
+var styles = {
+  container: {
+    'width': '650px',
+    'margin': '0 auto'
+  },
+  logo: {
+    'height': '225px'
   }
 }
 
