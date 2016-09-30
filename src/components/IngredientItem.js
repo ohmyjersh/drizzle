@@ -27,7 +27,7 @@ export default class IngredientItem extends Component {
         // add isEdit property for each ingredient, when row selected set isEdit=true for that item.  Swap list item for editing one.
         return(<span>{this.props.ingredients.map(x => {
            return x.get('isEdit') 
-           ? <ListItem style={styles.listItem} rightIconButton={
+           ? <ListItem rightIconButton={
               <IconButton onClick={(e) => this.onRemove(x.get('id'))}>
                     <Remove />
             </IconButton>}>
@@ -36,23 +36,11 @@ export default class IngredientItem extends Component {
                     onChange={(e) => this.onUpdate(e, x.get('id'))}
                     onKeyDown={(e) => {this.onDone(e, x.get('id'))}}/>
               </ListItem> 
-           : <ListItem style={styles.listItem}><TextField style={styles.textField}
+           : <ListItem><TextField
                     value={x.get('ingredient')}
                     underlineShow={false}
                     onClick={(e) => this.onEdit(x.get('id'), true)}/>
                     </ListItem>})}
             </span>);
-    }
-}
-
-var styles = {
-    textField: {
-        'width': '100%'
-    },
-    button: {
-
-    },
-    listItem: {
-        'height': '10px'
     }
 }

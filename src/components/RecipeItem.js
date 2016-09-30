@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {ListItem} from 'material-ui/List';
 
 const haveIngredient = (ingredient) => {
-    return <span style="font-weight: bold;">{ingredient}</span>
+    return <span style={{fontWeight: 'bold'}}>{ingredient}</span>
 }
 const Ingredient = (ingredient) => {
     return <span>{ingredient}</span>    
@@ -10,20 +10,28 @@ const Ingredient = (ingredient) => {
 
 export default class RecipeItem extends Component {
     listIngredients(ingredients, ingredientsList) {
-        return ingredients.map(x => {
-            if (ingredientsList.indexOf(x) > -1) {
+        let ingredArr = ingredients.split(',')
+        return ingredArr.map(x => {
+            let found = false;
+            ingredientsList.forEach((ingredient) => {
+                if (ingredient.ingredient == x.trim()){
+                    found = true;
+                }
+            });
+            if(found) {
                 return haveIngredient(x);
-            } else {
+            }
+            else {
                 return Ingredient(x);
             }
         });
     }
     render() {
-        var jsResults = this.props.results.toJS();
-        var items = jsResults[this.props.recipe -1].map(x => {
+        let jsResults = this.props.results.toJS();
+        let items = jsResults[this.props.recipe -1].map(x => {
             return <ListItem disabled={true}
                 primaryText={<a href={x.href}>{x.title}</a>}
-                secondaryText={<p><span>{x.ingredients.length}</span>{this.listIngredients(x.ingredients.split(','))}</p>}/>
+                secondaryText={<p>{this.listIngredients(x.ingredients, this.props.ingredients.toJS())}</p>}/>
             });
         return(<span>{items}</span>);
     }
