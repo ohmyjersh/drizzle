@@ -8,7 +8,7 @@ add filtering
 more UI specific tests
 
 thanks to @JIRO7 for the logo.
-thanks to @Rob--W for cors-anywhere which let me throw in a little hack to get the service working
+thanks to [Rob--W](https://github.com/Rob--W) for cors-anywhere which let me throw in a little hack to get the service working
 thanks to www.recipepuppy.com for the api
 
 
