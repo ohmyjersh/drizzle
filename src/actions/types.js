@@ -1,0 +1,12 @@
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+export const UPDATE_ADD = 'UPDATE_ADD';
+export const CLEAR_ALL = 'CLEAR_ALL';
+export const RESET_ADD = 'RESET_ADD';
+export const IS_EDITING = 'IS_EDITING';
+export const REMOVE = 'REMOVE';
+export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
+export const PREVIOUS_RECIPES = 'PREVIOUS_RECIPES';
+export const NEXT_RECIPES = 'NEXT_RECIPES';
+export const SET_ERROR = 'SET_ERROR';
+export const RECIPE_REQUEST = 'RECIPE_REQUEST';
+export const RECIPE_RESPONSE = 'RECIPE_RESPONSE'

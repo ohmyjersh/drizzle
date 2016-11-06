@@ -1,70 +1,72 @@
+import * as actionTypes from './types';
+
 export function addIngredient(text) {
   return {
-    type: 'ADD_INGREDIENT',
+    type: actionTypes.ADD_INGREDIENT,
     text
   }
 }
 export function updateAdd(char) {
   return {
-    type: 'UPDATE_ADD',
+    type: actionTypes.UPDATE_ADD,
     char
   };
 }
 export function clearAll() {
   return {
-    type: 'CLEAR_ALL'
+    type: actionTypes.CLEAR_ALL
   };
 }
 export function resetAdd() {
   return {
-    type: 'RESET_ADD'
+    type: actionTypes.RESET_ADD
   };
 }
 export function isEditing(id, status) {
   return {
-    type: 'IS_EDITING',
+    type: actionTypes.IS_EDITING,
     id,
     status
   };
 }
 export function removeIngredient(id) {
   return {
-    type: 'REMOVE',
+    type: actionTypes.REMOVE,
     id
   }
 }
 export function updateIngredient(id, text) {
   return {
-    type: 'UPDATE_INGREDIENT',
+    type: actionTypes.UPDATE_INGREDIENT,
     id,
     text
   };
 }
 export function previousRecipes() {
   return {
-    type:'PREVIOUS_RECIPES'
+    type:actionTypes.PREVIOUS_RECIPES
   };
 }
 export function nextRecipes() {
   return {
-    type:'NEXT_RECIPES'
+    type:actionTypes.NEXT_RECIPES
   };
 }
 export function setError(text, fetching){
   return {
-    type:'SET_ERROR',
+    type:actionTypes.SET_ERROR,
     text,
     fetching
   };
 }
 export function recipeRequest() {
   return {
-  type: 'RECIPE_REQUEST'
+  type: actionTypes.RECIPE_REQUEST
   }
 }
 export function recipeResponse(recipes) {
   return {
-    type:'RECIPE_RESPONSE',
+    type:actionTypes.RECIPE_RESPONSE,
     recipes: recipes
   }
 }

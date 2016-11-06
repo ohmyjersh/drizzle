@@ -1,4 +1,5 @@
 import Immuteable, {Map} from 'immutable';
+import * as actionTypes from '../actions/types';
 
 function findById(state, id) {
   return state.get('ingredients').findIndex(
@@ -71,27 +72,27 @@ function setError(state, text, fetching) {
 
 function reducer (state = Map(), action) {
     switch (action.type) {
-      case 'ADD_INGREDIENT':
+      case actionTypes.ADD_INGREDIENT:
         return addIngredient(state, action.text);
-      case 'UPDATE_ADD':
+      case actionTypes.UPDATE_ADD:
         return updateAdd(state, action.char);
-      case 'CLEAR_ALL':
+      case actionTypes.CLEAR_ALL:
         return clearAll(state);
-      case 'IS_EDITING':
+      case actionTypes.IS_EDITING:
         return isEditing(state, action.id, action.status);
-      case 'REMOVE':
+      case actionTypes.REMOVE:
         return removeIngredient(state, action.id);
-      case 'UPDATE_INGREDIENT':
+      case actionTypes.UPDATE_INGREDIENT:
         return updateIngredient(state, action.id, action.text);
-      case 'RECIPE_REQUEST':
+      case actionTypes.RECIPE_REQUEST:
         return recipeRequest(state);
-      case 'RECIPE_RESPONSE':
+      case actionTypes.RECIPE_RESPONSE:
         return getRecipes(state, action.recipes);
-      case 'PREVIOUS_RECIPES':
+      case actionTypes.PREVIOUS_RECIPES:
         return previousRecipes(state);
-      case 'NEXT_RECIPES':
+      case actionTypes.NEXT_RECIPES:
         return nextRecipes(state);
-      case 'SET_ERROR':
+      case actionTypes.SET_ERROR:
         return setError(state,action.text, action.fetching);
       default:
         return state;
