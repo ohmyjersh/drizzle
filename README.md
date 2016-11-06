@@ -7,9 +7,9 @@ make it look better
 add filtering
 more UI specific tests
 
-thanks to @JIRO7 for the logo.
+thanks to [JIRO7](https://github.com/JIRO7) for the logo.
 thanks to [Rob--W](https://github.com/Rob--W) for cors-anywhere which let me throw in a little hack to get the service working
-thanks to www.recipepuppy.com for the api
+thanks to [Recipe Puppy](www.recipepuppy.com) for the recipe api
 
 
 Copyright (C) 2013 - 2016 @ohmyjersh
