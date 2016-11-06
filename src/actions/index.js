@@ -71,7 +71,7 @@ export function recipeResponse(recipes) {
 export function getRecipes(ingredientsStr, page) {
   return dispatch => {
     dispatch(recipeRequest())
-    return fetch(`http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${page + 1}`, { method: 'GET', mode: 'no-cors',
+    return fetch(`https://cors-anywhere.herokuapp.com/http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${page + 1}`, { method: 'GET', mode: 'cors',
                cache: 'default' })
             .then(response => {
               if(response.status !== 200) {
