@@ -31,10 +31,6 @@ var styles = {
 
 
 class App extends Component {
-  hasWhiteSpace(s) {
-    return s.indexOf(' ') >= 0;
-  }
-
   getRecipes(e) {
     var ingredientsArr = this.props.ingredients.map(x => { return x.get('ingredient') })
     var ingredientsStr = ingredientsArr.join(',');
@@ -42,9 +38,6 @@ class App extends Component {
   }
 
   addIngredient(e) {
-    if(this.hasWhiteSpace(e.target.value)){
-      return this.props.setError('Only one ingredient can be added...');
-    }
     if (e.key === 'Enter' && e.target.value !== '') {
       return this.props.addIngredient(e.target.value);
     }
