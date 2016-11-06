@@ -67,19 +67,24 @@ export function recipeResponse(recipes) {
     recipes: recipes
   }
 }
+
 export function getRecipes(ingredientsStr, page) {
   return dispatch => {
     dispatch(recipeRequest())
     return fetch(`http://www.recipepuppy.com/api/?i=${ingredientsStr}&q=salad%20dressing&p=${page + 1}`, { method: 'GET',
                cache: 'default' })
             .then(response => {
-              if(response.status !== 200) {dispatch(setError('error has occured'));}
+              if(response.status !== 200) {
+                dispatch(setError('No recipes found, try again...'));
+                throw Error();
+              }
               else {
-              return response.json()
+                return response.json()
               }})
             .then((json) => {
               if(json.results.length === 0) {
-                dispatch(setError('no recipes found'));
+                dispatch(setError('No recipes found, try again...'));
+                throw Error();
               }
               else {
                 dispatch(recipeResponse(json.results));

@@ -4,6 +4,6 @@ import IngredientItem from './IngredientItem';
 
 export default class IngredientsList extends Component {
     render() {
-        return(<List><IngredientItem {...this.props}/></List>);
+        return(<List style={{padding:'0px 0px 0px 0px'}}><IngredientItem {...this.props}/></List>);
     }
 }

@@ -1,4 +1,4 @@
-import Immuteable, {Map, List} from 'immutable';
+import Immuteable, {Map} from 'immutable';
 
 function findById(state, id) {
   return state.get('ingredients').findIndex(
@@ -63,6 +63,9 @@ function getRecipes(state, recipes) {
 function recipeRequest(state) {
     return state.set('isFetching', true);
   }
+function setError(state, text) {
+    return state.set('error', text);
+}
 
 function reducer (state = Map(), action) {
     switch (action.type) {
@@ -86,8 +89,11 @@ function reducer (state = Map(), action) {
         return previousRecipes(state);
       case 'NEXT_RECIPES':
         return nextRecipes(state);
+      case 'SET_ERROR':
+        return setError(state,action.text);
+      default:
+        return state;
     }
-    return state;
 }
 
 module.exports = reducer;
