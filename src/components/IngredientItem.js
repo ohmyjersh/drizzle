@@ -39,6 +39,7 @@ export default class IngredientItem extends Component {
                             ? true
                             : false}
                         fullWidth={true}
+                        onFocus={(e) => this.onEdit(x.get('id'), true)}
                         value={x.get('ingredient')}
                         onChange={(e) => this.onUpdate(e, x.get('id'))}
                         onKeyDown={(e) => { this.onDone(e, x.get('id')) } } />

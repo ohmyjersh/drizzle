@@ -21,11 +21,14 @@ function updateIngredient(state, id, text) {
   return state.update('ingredients', ingredients => ingredients.set(index, updatedIngredient));
 }
 function isEditing(state, id, status) {
-  const index = findById(state, id);
-  const setEdit = state.get('ingredients')
-    .get(index)
-    .set('isEdit', status);
-  return state.update('ingredients', ingredients => ingredients.set(index, setEdit));
+  var newIngredients = state.get('ingredients').map(x => {
+    console.log(x);
+    if(x.get('id') === id) {
+      return x.set('isEdit', status);
+    }
+    return x.set('isEdit', false);
+  });
+  return state.set('ingredients', newIngredients);
 }
 function addIngredient(state, text) {
     const itemId = state.get('ingredients').reduce((maxId, item) => Math.max(maxId,item.get('id')), 0) + 1;
