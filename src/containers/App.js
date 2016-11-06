@@ -42,6 +42,9 @@ class App extends Component {
   }
 
   addIngredient(e) {
+    if(this.hasWhiteSpace(e.target.value)){
+      return this.props.setError('Only one ingredient can be added...');
+    }
     if (e.key === 'Enter' && e.target.value !== '') {
       return this.props.addIngredient(e.target.value);
     }
@@ -72,6 +75,7 @@ class App extends Component {
               style={styles.ingredientSearch}
               value={this.props.add}
               onChange={e => this.props.updateAdd(e.target.value)}
+              onFocus={e => this.props.isEditing()}
               underlineShow={false}
               hintText={this.props.results.size > 0 ? "Clear results to search again..." : "Add Ingredient"}
               fullWidth={true}
@@ -110,7 +114,7 @@ class App extends Component {
           <Snackbar
             open={this.props.error ? true : false}
             message={this.props.error}
-            autoHideDuration={4000}
+            autoHideDuration={2000}
             onRequestClose={() => this.props.setError('')}
             />
         </div>

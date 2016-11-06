@@ -22,7 +22,6 @@ function updateIngredient(state, id, text) {
 }
 function isEditing(state, id, status) {
   var newIngredients = state.get('ingredients').map(x => {
-    console.log(x);
     if(x.get('id') === id) {
       return x.set('isEdit', status);
     }
