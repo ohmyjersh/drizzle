@@ -1,6 +1,6 @@
 drizzle because salad.
 
-search for salad dressing by ingredients.
+search for salad dressing recipes by ingredients.
 
 TODO:<br />
 make it look better<br />
