@@ -98,7 +98,7 @@ class App extends Component {
                 onClick={(e) => this.previousRecipes(e)} />
               <div style={{ width: '100px', height: 'auto', display: 'inline-block' }} />
               <FlatButton secondary={true} label="Next" disabled={this.props.results.size < 1
-                || this.props.isFetching || this.props.results.toJS()[this.props.recipe -1].length < 10
+                || this.props.isFetching || this.props.results.toJS()[this.props.recipe -1].length < 10 
                 ? true
                 : false}
                 onClick={(e) => this.nextRecipes(e)} />

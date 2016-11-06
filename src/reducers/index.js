@@ -65,8 +65,8 @@ function getRecipes(state, recipes) {
 function recipeRequest(state) {
     return state.set('isFetching', true);
   }
-function setError(state, text) {
-    return state.set('error', text);
+function setError(state, text, fetching) {
+    return state.set('error', text).set('isFetching', fetching);
 }
 
 function reducer (state = Map(), action) {
@@ -92,7 +92,7 @@ function reducer (state = Map(), action) {
       case 'NEXT_RECIPES':
         return nextRecipes(state);
       case 'SET_ERROR':
-        return setError(state,action.text);
+        return setError(state,action.text, action.fetching);
       default:
         return state;
     }

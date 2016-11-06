@@ -50,10 +50,11 @@ export function nextRecipes() {
     type:'NEXT_RECIPES'
   };
 }
-export function setError(text){
+export function setError(text, fetching){
   return {
     type:'SET_ERROR',
-    text
+    text,
+    fetching
   };
 }
 export function recipeRequest() {
@@ -75,16 +76,16 @@ export function getRecipes(ingredientsStr, page) {
                cache: 'default' })
             .then(response => {
               if(response.status !== 200) {
-                dispatch(setError('No recipes found, try again...'));
-                throw Error();
+                dispatch(setError('No recipes found, try again...', false));
+                throw Error('error');
               }
               else {
                 return response.json()
               }})
             .then((json) => {
               if(json.results.length === 0) {
-                dispatch(setError('No recipes found, try again...'));
-                throw Error();
+                dispatch(setError('No recipes found, try again...', false));
+                throw Error('error');
               }
               else {
                 dispatch(recipeResponse(json.results));
