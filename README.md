@@ -9,7 +9,7 @@ more UI specific tests<br />
 
 thanks to [JIRO7](https://github.com/JIRO7) for the logo. <br />
 thanks to [Rob--W](https://github.com/Rob--W) for cors-anywhere which let me throw in a little hack to get the service working<br />
-thanks to [Recipe Puppy](www.recipepuppy.com) for the recipe api<br />
+thanks to [Recipe Puppy](http://recipepuppy.com) for the recipe api<br />
 
 
 Copyright (C) 2013 - 2016 @ohmyjersh
