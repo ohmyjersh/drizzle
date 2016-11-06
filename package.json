@@ -1,6 +1,6 @@
 {
   "name": "drizzle",
-  "homepage": "https://ohmyjersh.github.io/drizzle",
+  "homepage": "http://ohmyjersh.github.io/drizzle",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
