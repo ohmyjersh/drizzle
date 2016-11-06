@@ -2,14 +2,14 @@ drizzle because salad.
 
 search for salad dressing by ingredients.
 
-TODO:
-make it look better
-add filtering
-more UI specific tests
+TODO:<br />
+make it look better<br />
+add filtering<br />
+more UI specific tests<br />
 
-thanks to [JIRO7](https://github.com/JIRO7) for the logo.
-thanks to [Rob--W](https://github.com/Rob--W) for cors-anywhere which let me throw in a little hack to get the service working
-thanks to [Recipe Puppy](www.recipepuppy.com) for the recipe api
+thanks to [JIRO7](https://github.com/JIRO7) for the logo. <br />
+thanks to [Rob--W](https://github.com/Rob--W) for cors-anywhere which let me throw in a little hack to get the service working<br />
+thanks to [Recipe Puppy](www.recipepuppy.com) for the recipe api<br />
 
 
 Copyright (C) 2013 - 2016 @ohmyjersh
